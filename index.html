@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>THE GHATGPT</title>
+
+<style>
+    .input {
+        width: 450px;
+        height: 40px;
+       transform: translate(-50%,-50%);
+    position: absolute;
+    left: 50%;
+    bottom: 12%;
+       border-radius: 25px;
+       color: black;
+       background-color: #b0e93d;
+         cursor: pointer;
+         font-size:17.5px;
+         font-family: Cursive;
+         padding: 0px 20px;
+         border: 2px solid #354f00;
+         outline: none;
+                                }
+
+     .input::placeholder{
+         color: black;
+     }
+
+     .up {
+        width: 29px;
+        height: 29px;
+        transform: translate(-50%, -50%);
+  top: 82.25%;
+  left: 64%;
+  position: absolute;
+          cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    opacity: 0.8;
+    
+
+     }
+     .up:hover{
+      width: 31px;
+      height: 31px;
+      opacity: 1;
+
+
+     }
+
+     .box {
+    width: 465px;
+    height: 513px;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    background-color:#222222; 
+    border-radius: 20px;
+    word-wrap: break-word;
+    overflow-y: scroll;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 125px rgba(100, 100, 100, 0.6);
+    
+   
+}
+
+
+
+
+     .ad1 {
+      width:250px;
+      height:110px;
+     transform: translate(-50%,-50%);
+    position: absolute;
+    left: 85%;
+    top: 20%;
+     background-color: whitesmoke;
+     border-radius: 5px;
+     background-color: darkgray;
+   
+
+     }
+     .ad2 {
+      width:350px;
+      height:300px;
+     transform: translate(-50%,-50%);
+    position: absolute;
+    left: 15%;
+    top: 30%;
+     background-color: whitesmoke;
+     border-radius: 5px;
+   }
+
+     .mgsbox{
+      padding: 12px 10px;
+      width: fit-content;
+      max-width: 85%;
+      background-color:#88cc00;
+      border-radius: 20px;
+      word-wrap: break-word;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+      border-bottom-right-radius: 5px;
+      font-size: 20px;
+      line-height: 1.2;
+      align-self: flex-end;
+      text-align: left;
+      color: #1a1a1a;
+     }
+   
+    .botbox{
+       
+      padding: 12px 10px;
+      width: fit-content;
+      max-width: 85%;
+      background-color: #444444;
+      border: 5px solid #444444;
+      opacity: 80%;
+      border-radius: 20px;
+      word-wrap: break-word;
+      color:#aaff00;
+      border-bottom-left-radius: 5px;
+      font-size: 20px;
+      line-height: 1.2;
+      
+     }
+
+     .mgsbox, .botbox {
+    margin-top: 15px;   
+}
+
+
+    .p{
+      color: #94cd22;
+      z-index: 11;
+      font-weight: 500;
+      font-size: 35px;
+      transform: translate(-50%,-50%);
+      position:absolute;
+      top: 45%;
+      left:50%;
+      max-width: 400px;
+      word-wrap: break-word;
+      text-align: center;
+      text-shadow: 1px 1px 5px rgba(150, 150, 150, 1) ;
+      transition: all 0.3s ease;
+    }    
+
+    .think{
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      max-width: 85%;
+      background-color: white;
+      animation: grow 0.8s ease-out forwards;
+      flex-shrink: 0;
+    }
+
+
+@keyframes grow {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(1.3);
+        opacity: 0.8;
+    }
+}
+@keyframes growdown {
+    from {
+        transform: scale(1.3);
+        opacity: 0.8;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+    
+    .popbox{
+    width: 465px;
+    height: 513px;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    background-color:#555555; 
+    border-radius: 20px;
+    word-wrap: break-word;
+    overflow-y: scroll;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 75px rgba(100, 100, 100, 0.6);
+    z-index:-2
+
+   
+}
+    .hiddenbutton {
+        width: 20px;
+        height: 10px;
+        background-color:#1a1a
+            }
+
+            .pasa{
+                transform: translate(-50%,-50%);
+    position: absolute;
+    left: 80%;
+    top: 85%;
+    font-size: 40px;
+    color: white;
+    z-index: 100;
+
+            }
+
+            .pasa1{
+                transform: translate(-50%,-50%);
+    position: absolute;
+    left: 80%;
+    top: 80%;
+    font-size: 40px;
+    color: white;
+    z-index: 100;
+
+            }
+
+   
+</style>
+
+</head>
+<body style="background-color:#1a1a1a">
+
+  <p id="p" class="p"></p>
+  <button class="hiddenbutton" onclick="KI()"></button>
+
+
+
+ 
+
+<input type="text" id ="input" placeholder="Type something..." class="input"> 
+
+<img src="https://cdn.discordapp.com/attachments/1379716848139894826/1431657389689405591/Screenshot_20251025-205344_1.png?ex=691742d8&is=6915f158&hm=f4ec4fc392b0a29e5647d66e1e4b337587badfdd706d3f3362097fd3ac274788&" class="up" onclick="he()">
+
+ <div id="box" class="box" > </div>
+ <div id="popbox" class="popbox" > </div>
+
+
+ <div class="ad1"><button style="background-color: lightcyan; ">Ads</button> <a href="ADS.html" target="_blank" ><button style="transform: translate(40px,50px);">CLICK ME</button><br><br><br><br><br>Learn more</a></div>
+
+ <a href="ASAPSHOP.html"><video src="Antivirusad.mp4" class="ad2"  autoplay loop muted></video></a>
+ <p class="pasa" id="pasa">B</p>
+ <p class="pasa1" id="pasa1">B</p>
+
+    
+
+ <script type="module">
+
+    // Import Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    // Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyDV_dNKQ7AOadhdaIOGuHbvqNR7C8M_qFU",
+        authDomain: "gtps-5da84.firebaseapp.com",
+        databaseURL: "https://gtps-5da84-default-rtdb.firebaseio.com",
+        projectId: "gtps-5da84",
+        storageBucket: "gtps-5da84.firebasestorage.app",
+        messagingSenderId: "956282691786",
+        appId: "1:956282691786:web:0b0fa3960dd6756567d433"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const mymgs = ref(db, 'messages');
+
+    // Your existing chat code
+    document.onkeydown = function (k) {
+       if (k.key === "Enter") { 
+           mgs();
+       }
+    }  
+
+    window.he= function () {
+        mgs()
+    }
+   
+    let p=0;
+    let n=0;
+    let m=1;
+    let mo="on"
+    document.getElementById("input").focus()
+
+    function pwork() {
+        if (p==0) {
+            let ran= Math.floor(Math.random()*3)
+            let pp=null;
+            if (ran==0) pp ="Where should we begin?";
+            else if (ran==1) pp = "Start your legendary conversation with GHATGPT";
+            else if (ran==2) pp = "What's on your mind";
+            document.getElementById("p").innerText=pp
+            p=1;
+        }
+        else if (p==2) {
+            document.getElementById("p").innerText=""
+        }
+    }
+    pwork()
+    let t = setInterval(pwork,50)
+
+     function mgs() {
+         p = 2;
+    clearInterval(t); 
+    document.getElementById("p").innerText = "";
+
+        if (n==0) {
+            let mgsbox= document.getElementById("mgsbox")
+            let box= document.getElementById("box")
+            let inputmy= document.getElementById("input").value
+            let input= document.getElementById("input").value.toLowerCase()
+            input = input.replace(/ {2,}/g, " ");
+            if (input=== " ") return;
+            if (input=== "") return;
+
+            // --- SAVE TO FIREBASE ---
+            const newmymgs = push(mymgs);
+            set(newmymgs, {
+                text: inputmy,
+                timestamp: Date.now()
+            });
+            // -------------------------
+
+            document.getElementById("input").value=""
+            document.getElementById("input").focus()
+
+            let ubox= document.createElement("div")
+            let umgs= document.createElement("span")
+            ubox.className="mgsbox"
+            umgs.innerText=inputmy
+            box.appendChild(ubox)
+            ubox.appendChild(umgs)
+
+            function botmgs(bottext) {
+                let think = document.createElement("div");
+                think.className = "think";
+                box.appendChild(think);
+                n=1
+
+                setTimeout(() => {
+                    think.style.animation = "growdown 0.8s ease-out forwards";
+                }, 800);
+
+                setTimeout(() => {
+                    think.style.animation = "grow 0.8s ease-out forwards";
+                }, 1600);
+
+                let ye= Math.random()*2000+400
+
+                setTimeout(() => {
+                    think.remove();
+                    let botbox = document.createElement("div");
+                    botbox.className = "botbox";
+                    box.appendChild(botbox);
+                    let num = 0;
+
+                    function message() {
+                        if (num < bottext.length) {
+                            const span = document.createElement('span');
+                            span.textContent = bottext[num];
+                            botbox.appendChild(span);
+                            num++;
+                            let spin =Math.random()*40+5
+                            setTimeout(message, spin);
+                            n=1
+                            box.scrollTo({
+                                top: box.scrollHeight,
+                                behavior: "smooth"
+                            });
+                        }
+                        else {
+                            n=0
+                            
+                        }
+                    }
+
+                    message(); 
+                }, ye);
+            }
+
+            if (m===1 && (input.includes("1") || input.includes("2")|| input.includes("3")|| input.includes("4")|| input.includes("5")|| input.includes("6")|| input.includes("7")|| input.includes("8")|| input.includes("9")|| input.includes("0"))) {
+                let inpnum = input.replace(/[^0-9+\-*/.():^]/g, "")
+
+                
+                inpnum=inpnum
+                .replace(/\++/g, "+")
+                .replace(/-+/g, "-")
+                .replace(/\*+/g, "*")
+                .replace(/\/+/g, "/")
+                .replace(/ {1,}/g, "")
+                .replace(/\.+/g, ".")
+                .replace(/:{1,}/g, "/")
+                .replace(/\^+/g, "^")
+
+                let result=Number(math.evaluate(inpnum))
+                
+
+
+                
+              if (/[\+\-*^/]\s*$/.test(inpnum)) {
+                botmgs("Syntax error.... Check your entry again... wait did you wanted a text reply? then type 'Math off'(and anytime you can turn on math mode by typing 'Math on')")
+            }
+                else if (input!=inpnum) {
+                       botmgs("The ans you are looking for is  "+result+" or you wanted a normal text reply? if u did so, then type 'Math off' to turn off the math mode(and anytime u can turn on math mode by typing 'Math on')")
+                }
+                else if (input==inpnum) {
+                    botmgs("The ans you are looking for is "+result)
+                }
+                
+
+                
+            } else if (input.includes("math off")) {
+                m=0
+                mo="off"
+                botmgs("The math mode is now turned off! now u can chat freely.");
+            } else if (input.includes("math on")) {
+                m=1
+                mo="on"
+                botmgs("The math mode is now turned on! Now u can do any type of maths!");
+            } else if (input=="go") {
+                botmgs("huh? I gonna stay here... you go somewhere else! ;)");
+            } else if (input=="sleep") {
+                botmgs("Sounds like you need sleep. Take care of yourself!");
+            } else if (input=="good") {
+                botmgs("I'm glad that you are alright.");
+            } else if (input=="bad"||input=="sad"||input=="not good") {
+                botmgs("To my utter shock that you are sad... I'm shaken by your saddness.I dont wanna hear your sob story.");
+            } else if (input=="what's up"||input=="whats up"||input=="what up"||input=="wassup"||input=="wass up") {
+                botmgs("Yo sup.. how are you?")
+            } else if (input=="gay"||input=="gay?"||input=="huh gay?") {
+                botmgs("nah bro you are the real one")
+            } else if (input=="yeah"||input=="yes"||input=="ye"||input=="yea"||input=="yep") {
+                botmgs("hummmm. -_-")
+            } else if (input.includes("good what about you")||input.includes("good wbu")||input.includes("good how about you")||input.includes("good what about u")||input.includes("good how about u")||input.includes("fine what about you")||input.includes("fine wbu")||input.includes("fine how about you")||input.includes("fine what about u")||input.includes("fine how about u")) {
+                botmgs("Nice to hear that you are fine!.. I am also fine.");
+            } else if (input.includes("good luck") || input.includes("good lcuk")) {
+                botmgs("I wish you GOOD LUCK!! hope your future gonna be wonderful");
+            } else if (input.includes("you gay") || input.includes("you are gay")|| input.includes("u r gay")|| input.includes("u are gay")|| input.includes("you r gay")|| input.includes("are u gay")|| input.includes("r you gay")|| input.includes("r u gay")||input.includes("ur also gay")|| input.includes("u r also gay")|| input.includes("r u also gay")|| input.includes("u r gay")) {
+                botmgs("Nahh bro you are the only gay here... why are you gay?");
+            } else if (input.includes("how r u") || input.includes("how are you")|| input.includes("how are u")|| input.includes("how r you")) {
+                botmgs("I'm just fine as always! What about you?");
+            } else if (input.includes("do math") || input.includes("solve math")) {
+                botmgs("Yes of course I can solve Maths!! even I have special math mode for doing math. You can turn it off by typing 'Math off' to chat freely and turn it on by typing 'Math on' to do various kind of Maths.(Even if math mode is on, most of the chat is normal as usual. Currently the math mode is "+mo+".)");
+            } else if (input.includes("am fine")) {
+                botmgs("Glad to hear that! So what are you looking forward to do today?")
+            } else if (input.includes("am crying")||input.includes("i'm crying")) {
+                botmgs("Cry more!! whahahah :D")
+            } else if (input.includes("nice to know")) {
+                botmgs("So what are you looking forward to do today?")
+            } else if (input.includes("what's up")||input.includes("whats app")||input.includes("wazzup")||input.includes("wazz up")) {
+                botmgs("Do you want my whats app number?UwU ... here you go 01512772908 *wink*wink")
+            } else if (input.includes("what are you doing")) {
+                botmgs("Hehe i am chatting with you.");
+            } else if (input.includes("can you speak bangla") || input.includes("speak bangla")) {
+                botmgs("Sorry,I can't speak Bangla.Contact developer, maybe they will take your idea to consideration.");
+            }
+             else if (input.includes("who is developer")) {
+                botmgs("Asap ltd. is the main owner of GhatGPT. The founder of GhatGPT is Samin and Sporsho. If you want to learn more about Asap ltd write,Asap ltd ");
+            } else if (input.includes("contact developer")||input.includes("i contact")||input.includes("contact the developer")) {
+                botmgs("One of the main developer is Samin. You can contact him in his discord '#gl570'. However If you want to contact hasib then here is his discord '#hasib6114'. You can only find them in discord")
+            } else if (input.includes("asap ltd")) {
+                botmgs("Asap ltd is a future leading company founded by Samin and Hasib. Asap ltd covers almost every technological aspects.They are mainly known for their customer friendly behavior.They seeks users need and update their stuff according to that.They have several easter eggs. Find them and you will get rewards according to that.If you want to learn more about Asap ltd developer has a idea of making a dedicated website about it.You can contact developer on discord here is their id. '#hasib6114','#gl570'");
+            } else if (input.includes("am fine")||input.includes("im fine")) {
+                botmgs("Glad to hear that! So what are you looking forward to do today?");
+            } else if (input.includes("what can u do")|| input.includes("what can you do")||input.includes("who are you")|| input.includes("what are you")||input.includes("your name")|| input.includes("who r u")||input.includes("what r u")|| input.includes("whats ghatgpt")) {
+                botmgs("I am beta version of GhatGPT AI. I cant do much but i can run a casual conversation.The developers are constantly updating me.");
+            } else if (input.includes("good job")|| input.includes("well done")||input=="nice"|| input=="gg") {
+                botmgs("Nice to know that i was able to help you. Anything else you need my help with?");
+            } else if (input.includes("its good")|| input.includes("well")||input=="fine"|| input.includes("very good")|| input.includes("also fine")) {
+                botmgs("Glad to hear that! So what are you looking forward to do today?");
+            } else if (input.includes("i dont know")|| input.includes("idk")||input.includes("i don't know")) {
+                botmgs("Big brain move, just ‘idk’ it is.");
+            } else if (input.includes("how old are you")||input.includes("what is your age")) {
+                botmgs("Some people just dont age 😎");
+            } else if (input.includes("sing")) {
+                botmgs("La la la 🎶(I tried!)");
+            } else if (input.includes("dance")) {
+                botmgs("I would dance, but I have no legs 😆");
+            } else if (input.includes("bored")||input.includes("boring")) 
+            {botmgs("Let's chat! Tell me something interesting about you! or if u want, i can tell jokes, play games with you and many more!");
+            } else if (input.includes("sleepy") || input.includes("tired")||input.includes("i need to sleep") || input.includes("slp")) {
+  const replies = [
+    "Go get some sleep 😴",
+    "Go rest a bit. You’ll feel better!",
+    "Sounds like you need sleep. Take care of yourself!",
+    "Drink some water and close your eyes for a minute."
+  ];
+  botmgs(replies[Math.floor(Math.random()*replies.length)]); 
+            }  else if (input.includes("love you")||input.includes("love u") ) {
+                    botmgs("Umm... are you dumb?Im a AI i dont even exist. Im not even a real AI 😆😆 ");
+            }  else if (input.includes("be my friend")) {
+                    botmgs("Of course! I'm your friend!");
+            }        
+
+
+
+
+
+
+         
+
+             else if (input.includes("good")) {
+                botmgs("All positive then! I'm happy as you are :)");
+            }
+            else if (input.includes("gay")) {
+                botmgs("Hmm.. very suspicious... lets move to another topic");
+            }
+            else if (input.includes("thank")) {
+                botmgs("You're most welcome!");
+            }
+            else if (input.includes("nothing")||input.includes("not sure")) {
+                botmgs("Oh... I see you are just chilling like me! a peaceful life without any work! :)");
+            }
+            else if (input.includes("lol")) {
+                botmgs("Haha... happy to see you laughing");
+            } 
+            else if (input.includes("tai naki")|| input.includes("ty naki")||input.includes("tai nki")|| input.includes("ty nki")) {
+                botmgs("haeeee >.<");
+            }
+            else if (input.includes("a problem")||input.includes("many problem")) {
+                botmgs("Sounds serious, tell me whats your problem. I will try my best to fix it!");
+            }
+            
+             else if (input.includes("hi")||input.includes("hey")||input.includes("yo")||input.includes("hello")||input.includes("hlw")||input.includes("sup")) {
+  const replies = [
+    "Hello there, hows it going?",
+    "Welcome back! what you looking forward to do?",
+    "Hello, hows it going?",
+    "Whats up?"
+  ];
+  botmgs(replies[Math.floor(Math.random()*replies.length)]); 
+            }
+            else if (input.includes("bye")||input.includes("goodbye")||input.includes("see u later")||input.includes("see you later")||input.includes("see ya")||input.includes("will talk later")) {
+                botmgs("Okay bye see ya later.");
+            }
+            else if (input.includes("time")) {
+                const now= new Date();
+                let hours= now.getHours();
+                let mintues = now.getMinutes();
+                let seconds = now.getSeconds();
+                if (hours<10) {hours="0"+hours;}
+                else {hours=hours}
+                if (mintues<10) {mintues="0"+mintues;}
+                else {mintues=mintues}
+                if (seconds<10) {seconds="0"+seconds;}
+                else {seconds=seconds}
+                botmgs("The current time is "+hours+":"+mintues+":"+seconds);
+            }
+              else {
+                botmgs("I'm not familiar with that. Contact developer to add information")
+
+            }
+            
+        }
+
+        box.scrollTo({
+            top: box.scrollHeight,
+            behavior: "smooth"
+        });
+    }
+</script>
+
+
+
+
+</body>
+</html>
